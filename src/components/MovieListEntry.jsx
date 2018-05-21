@@ -45,34 +45,34 @@ class MovieListEntry extends React.Component {
           }
       }
 
-      var movieInfo = (
-        <div className = "movie-info">
-          Runtime: {this.props.movie.runtime}
-        </div>
-      )
 
       if (display === 'watched') {
-        var movieDisplay = (
-          <div className="movie-list-entry">
-            <div className="movie-list-entry-title">
-              {this.props.movie.title}
-            </div>
-            {movieInfo}
-            <div className="watch-status">
-              <button className="watched" onClick={this.handleWatchClick.bind(this)}>Watched</button>
-            </div>
+        var movieWatchDisplay = <button className="watched" onClick={this.handleWatchClick.bind(this)}>Watched</button>
+      } else if (display === 'toWatch') {
+        var movieWatchDisplay = <button className="to-watch" onClick={this.handleWatchClick.bind(this)}>To Watch</button>
+      }
+
+      if (this.state.displayInfo) {
+        var movieInfo = (
+          <div className = "movie-info">
+            Runtime: {this.props.movie.runtime}
+            {movieWatchDisplay}
           </div>
         )
-      } else if (display === 'toWatch') {
+      } else {
+        var movieInfo = (
+          <div className = "movie-info">
+          </div>
+        )
+      }
+
+      if (display ==='watched' || display ==='toWatch') {
         var movieDisplay = (
           <div className="movie-list-entry">
             <div className="movie-list-entry-title">
               {this.props.movie.title}
             </div>
             {movieInfo}
-            <div className="watch-status">
-              <button className="to-watch" onClick={this.handleWatchClick.bind(this)}>To Watch</button>
-            </div>
           </div>
         )
       }
