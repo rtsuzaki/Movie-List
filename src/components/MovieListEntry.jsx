@@ -55,7 +55,18 @@ class MovieListEntry extends React.Component {
       if (this.state.displayInfo) {
         var movieInfo = (
           <div className = "movie-info">
-            Runtime: {this.props.movie.runtime}
+            <div display='block'>
+            <b>Overview:</b> 
+            </div>
+            <div className = 'overview-info' display='block'>
+            {this.props.movie.overview}
+            </div>
+            <div display='block'>
+            <b>Release Date:</b> 
+            </div>
+            <div className = 'overview-info' display='block'>
+            {this.props.movie.releaseDate}
+            </div>
             {movieWatchDisplay}
           </div>
         )
@@ -69,7 +80,7 @@ class MovieListEntry extends React.Component {
       if (display ==='watched' || display ==='toWatch') {
         var movieDisplay = (
           <div className="movie-list-entry">
-            <div className="movie-list-entry-title">
+            <div className="movie-list-entry-title" onClick={this.handleInfoDisplay.bind(this)}>
               {this.props.movie.title}
             </div>
             {movieInfo}

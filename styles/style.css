@@ -50,6 +50,8 @@ h1 {
 
 .movie-list-entry-title {
   font-weight: bold;
+  font-size: 28px;
+  text-decoration-line: underline;
 }
 
 .movie-list-entry-title:hover {
@@ -81,4 +83,12 @@ h1 {
 
 .selected {
   background-color: gray;
+}
+
+.movie-info {
+  font-size: 12px;
+}
+
+.overview-info {
+  font-style: italic;
 }

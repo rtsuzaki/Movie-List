@@ -3,8 +3,8 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            allMovies: [{title:'new',runtime:'107 minutes',watched:true},{title:'movie', runtime:'45 minutes',watched:false}],
-            displayedMovies: [{title:'new',runtime:'107 minutes',watched:true},{title:'movie', runtime:'45 minutes',watched:false}],
+            allMovies: [{title:'new',overview:'blah',releaseDate: 1990, watched:true},{title:'movie', overview: 'merp', releaseDate: 1990, watched:false}],
+            displayedMovies: [{title:'new',overview:'blah',releaseDate: 1990, watched:true},{title:'movie', overview: 'merp', releaseDate: 1990, watched:false}],
             homeWatchedStatus: 'neutral',
             // homeToWatchStatus: false,
         }
@@ -25,12 +25,35 @@ class App extends React.Component {
     }
 
     addMovie(input) {
-        var currentAllMovies = this.state.allMovies;
-        var currentDisplayedMovies = this.state.displayedMovies;
-        var newMovie = {title: input};
-        currentAllMovies.push(newMovie);
-        currentDisplayedMovies.push(newMovie);
-        this.setState({allMovies: currentAllMovies, displayedMovies: currentDisplayedMovies})
+        // var currentAllMovies = this.state.allMovies;
+        // var currentDisplayedMovies = this.state.displayedMovies;
+        // var newMovie = {title: input};
+        // currentAllMovies.push(newMovie);
+        // currentDisplayedMovies.push(newMovie);
+        // this.setState({allMovies: currentAllMovies, displayedMovies: currentDisplayedMovies})
+            // TODO
+            //console.log('hi');
+        var app = this;
+        var setMovieToResult = function(result) {
+            var currentAllMovies = app.state.allMovies;
+            var currentDisplayedMovies = app.state.displayedMovies;
+            var newMovie = {title: result.title, overview:result.overview, releaseDate:result.release_date,watched:true};
+            currentAllMovies.push(newMovie);
+            currentDisplayedMovies.push(newMovie);
+            app.setState({allMovies: currentAllMovies, displayedMovies: currentDisplayedMovies})
+        }
+
+        var getRequest = function(query,callback) {
+            $.ajax({
+                type: 'GET',
+                url: 'https://api.themoviedb.org/3/search/movie?api_key=8d3019d7e1b1e943a4913b1001f655f5&language=en-US&query=' + query + '&page=1&include_adult=false',
+                success: function(data) {
+                    console.log(data.results[0]);
+                    callback(data.results[0]);
+                }
+            });
+        };
+        getRequest(input,setMovieToResult);
     }
 
     handleHomeWatchedClick() {
